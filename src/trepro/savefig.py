@@ -28,24 +28,27 @@ __version__ = "3.1.0"
 
 
 def _get_git_info(include_diff=False):
-    cwd = os.getcwd()  # Get the current working directory
-    os_info = os.uname()  # Get the OS information
+    res = {
+        "cwd": os.getcwd(),
+        "os": os.uname(),
+    }
 
     if include_diff:
         try:
             diff = check_output("git diff", shell=True, stderr=PIPE).decode("utf-8")
+            res["git-diff"] = diff
         except CalledProcessError:
-            return None
+            ...
 
     cmd = 'git log -1 --date=iso8601 --format="%H || %ad || %an"'
     try:
         result = check_output(cmd, shell=True, stderr=PIPE).decode("utf-8")
+        git_info = dict(
+            zip(["git-hash", "git-date", "git-author"], result.split(" || "))
+        )
+        res.update(git_info)
     except CalledProcessError:
-        return None
-
-    ret = dict(zip(["git-hash", "git-date", "git-author"], result.split(" || ")))
-    ret["cwd"] = cwd  # Add the current working directory to the metadata
-    ret["os"] = os_info.sysname  # Add the OS name to the metadata
+        ...
 
     # add git remote info
     try:
@@ -54,15 +57,11 @@ def _get_git_info(include_diff=False):
             .decode("utf-8")
             .strip()
         )
+        res["git-remote"] = remote
     except CalledProcessError:
-        return None
+        ...
 
-    ret["git-remote"] = remote
-
-    if include_diff and diff:
-        ret["git-diff"] = diff
-
-    return ret
+    return res
 
 
 def patch_savefig():
@@ -120,7 +119,7 @@ def load_saved_figure(file_name: str | Path) -> tuple[Figure, dict]:
         data = f.read()
 
         if separator_start not in data or separator_end not in data:
-            raise ValueError("File is not a valid TransMux-Visualization file")
+            raise ValueError("File is not a valid Trepro-Visualization file")
 
         # find start and end
         start = data.index(separator_start) + len(separator_start)
@@ -142,6 +141,7 @@ if __name__ == "__main__":
     # test
     fig, ax = plt.subplots()
     ax.plot([1, 2, 3], [4, 5, 6])
+    patch_savefig()
     plt.savefig("test.png")
     # print(_get_git_info())
     # load
