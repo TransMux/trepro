@@ -1,0 +1,19 @@
+[project]
+name = "trepro"
+version = "0.1.0"
+description = "Towards better reproductions, less effort."
+authors = [
+    {name = "Muxuan Li", email = "InEase28@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
