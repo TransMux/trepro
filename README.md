@@ -29,6 +29,10 @@ pip install trepro
 
 ## ✨ Recover Figure with Metadata ✨
 
+<br/>
+<p align="center" color="red">!!! Supports only <code>.pdf</code> & <code>.png</code> !!!</p>
+<br/>
+
 ![alt text](docs/assets/cee7ed27cc2e9f698c16be907444e1b.png)
 
 ```diff
@@ -38,6 +42,7 @@ from matplotlib import pyplot as plt
 fig, ax = plt.subplots()
 ax.plot([1, 2, 3], [4, 5, 6])
 
+- # Supports only .pdf & .png, other formats will behave as-is
 + patch_savefig() # patch savefig to save metadata
 
 plt.savefig("test.png")
