@@ -13,7 +13,7 @@
 
 <br />
 
-What does Trepro afford:
+What **Trepro** afford:
 
 - Save and load matplotlib figures with metadata, so you can **recover the state of the figure whenever you want**.
 
@@ -47,4 +47,3 @@ plt.savefig("test.png")
 + fig, metadata = load_saved_figure("test.png")
 + print(metadata)
 ```
-
