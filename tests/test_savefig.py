@@ -3,7 +3,7 @@ from unittest.mock import patch
 from pathlib import Path
 import os
 import matplotlib.pyplot as plt
-from trepro.savefig import (
+from trepro.matplotlib import (
     patch_savefig,
     load_saved_figure,
     separator_start,

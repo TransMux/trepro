@@ -9,6 +9,7 @@ except ImportError:
     from logging import getLogger
 
     logger = getLogger("trepro")
+    logger.success = logger.info
 
 try:
     import matplotlib
