@@ -70,10 +70,8 @@ def patch_savefig():
     def inner(fig: Figure, file_name: str, *args, **kwargs):
         # get file extension
         ext = os.path.splitext(file_name)[1]
+        saved_fig = mpl_savefig(fig, file_name, *args, **kwargs)
         if ext in [".png", ".pdf"]:
-            # save fig pickle using Steganography
-            saved_fig = mpl_savefig(fig, file_name, *args, **kwargs)
-
             try:
                 git_info = _get_git_info()
             except Exception as e:
@@ -104,7 +102,7 @@ def patch_savefig():
         else:
             logger.warning(f"Metadata will not be saved for extention: '{ext}'\n")
 
-            return mpl_savefig(file_name, *args, **kwargs)
+            return saved_fig
 
     Figure.savefig = inner
 

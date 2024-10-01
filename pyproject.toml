@@ -1,6 +1,6 @@
 [project]
 name = "trepro"
-version = "1.0.0"
+version = "1.0.1"
 description = "Towards better reproductions, less effort."
 authors = [
     {name = "Muxuan Li", email = "InEase28@gmail.com"},
